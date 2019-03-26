@@ -1,31 +1,23 @@
-# httpbin(1): HTTP Request & Response Service
+# my custom httpbin(1): HTTP Request & Response Service
 
+latest/ubuntu:[![](https://images.microbadger.com/badges/image/simonkowallik/httpbin.svg)](https://microbadger.com/images/simonkowallik/httpbin)
+alpine:[![](https://images.microbadger.com/badges/image/simonkowallik/httpbin:alpine.svg)](https://microbadger.com/images/simonkowallik/httpbin:alpine)
 
-A [Kenneth Reitz](http://kennethreitz.org/bitcoin) Project.
+This is my custom version of httpbin tailored to my personal needs.
 
-![ice cream](http://farm1.staticflickr.com/572/32514669683_4daf2ab7bc_k_d.jpg)
+I cannot guarantee it will keep track of all commits to [postmanlabs / httpbin](https://github.com/postmanlabs/httpbin) but I plan to submit pull requests for all changes to upstream.
 
-Run locally:
-```sh
-docker pull kennethreitz/httpbin
-docker run -p 80:80 kennethreitz/httpbin
-```
+# Differences
+At the time of writing this are the differences:
 
-See http://httpbin.org for more information.
+- adds server network info app.route and to /anything #1
+- adds adds X-Powered-By: httpbin/<version> Header - #431 #2
+- adds /customresponse/<base64> endpoint to generate custom responses #3
+- adds alpine:3.9 Dockerfile #4
 
-## Officially Deployed at:
+# Docker Tags
+`latest` and `alpine` both use alpine while `ubuntu` usues the original `ubuntu:18.04` base image.
 
-- http://httpbin.org
-- https://httpbin.org
-- https://hub.docker.com/r/kennethreitz/httpbin/
+# Run it locally
 
-
-## SEE ALSO
-
-- http://requestb.in
-- http://python-requests.org
-- https://grpcb.in/
-
-## Build Status
-
-[![Build Status](https://travis-ci.org/requests/httpbin.svg?branch=master)](https://travis-ci.org/requests/httpbin)
+    docker run -p 80:80 simonkowallik/httpbin
