@@ -3,7 +3,6 @@ FROM nginx:alpine
 LABEL name="httpbin"
 LABEL version="0.9.2"
 LABEL description="A simple HTTP service."
-LABEL org.kennethreitz.vendor="Kenneth Reitz"
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
@@ -43,4 +42,4 @@ STOPSIGNAL SIGTERM
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["run_nginx"]
+CMD ["nginx", "-g", "daemon off;"]

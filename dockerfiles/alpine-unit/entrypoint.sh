@@ -19,4 +19,4 @@ then
   rm -f /tmp/openssl.conf /tmp/cert.pem /tmp/key.pem
 fi
 
-exec $@
+exec "$@"
