@@ -43,4 +43,4 @@ STOPSIGNAL SIGTERM
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["run_nginx"]
+CMD ["nginx", "-g", "daemon off;"]
