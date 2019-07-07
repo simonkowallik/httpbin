@@ -27,7 +27,7 @@ then
 
   if [ ! -f /etc/nginx/ssl/chain.pem ]
   then
-    echo "/etc/nginx/ssl/chain.pem not found, linking to /etc/nginx/ssl/chain.pem"
+    echo "/etc/nginx/ssl/chain.pem not found, linking to /etc/nginx/ssl/cert.pem"
     ln -s /etc/nginx/ssl/cert.pem /etc/nginx/ssl/chain.pem
   fi
 
