@@ -15,11 +15,26 @@ I cannot guarantee it will keep track of all commits to [postmanlabs / httpbin](
 
 - `:nginx` : Uses [nginx](https://github.com/nginx/nginx) and [uwsgi](https://github.com/unbit/uwsgi) instead of gunicorn, uses base image `nginx:alpine`
 
+> Important configuration files which can optionally be overwritten for customization:
+>
+> - `/etc/nginx/ssl/dhparam.pem`
+> - `/etc/nginx/ssl/cert.pem`
+> - `/etc/nginx/ssl/key.pem`
+> - `/etc/nginx/ssl/chain.pem`
+> - `/etc/nginx/nginx.conf`
+> - `/etc/uwsgi/uwsgi.ini`
+
 - `:unit` : Uses [nginx's unit](https://github.com/nginx/unit) instead of gunicorn, uses base image `alpine`
 
- - `:ubuntu` :  Uses the original `ubuntu:18.04` base image.
+> Important configuration files which can optionally be overwritten for customization:
+>
+> - `/var/lib/unit/certs/bundle` (bundle content created by: `cat cert.pem cachain.pem key.pem > bundle`)
+> - `/var/lib/unit/conf.json`
 
-# Docker image details
+- `:ubuntu` :  Uses the original `ubuntu:18.04` base image.
+
+## Docker image details
+
 [![](https://img.shields.io/microbadger/layers/simonkowallik/httpbin/alpine.svg?label=:latest%2F:alpine+layers)](https://microbadger.com/images/simonkowallik/httpbin:alpine)
 [![](https://img.shields.io/microbadger/image-size/simonkowallik/httpbin/alpine.svg?label=:latest%2F:alpine+size)](https://microbadger.com/images/simonkowallik/httpbin:alpine)
 
@@ -32,10 +47,13 @@ I cannot guarantee it will keep track of all commits to [postmanlabs / httpbin](
 [![](https://img.shields.io/microbadger/layers/simonkowallik/httpbin/ubuntu.svg?label=:ubuntu+layers)](https://microbadger.com/images/simonkowallik/httpbin:ubuntu)
 [![](https://img.shields.io/microbadger/image-size/simonkowallik/httpbin/ubuntu.svg?label=:ubuntu+size)](https://microbadger.com/images/simonkowallik/httpbin:ubuntu)
 
-
 ## Run it locally
 
 ```sh
+    docker run -p 80:80 simonkowallik/httpbin:nginx
+
+    docker run -p 80:80 simonkowallik/httpbin:unit
+
     docker run -p 80:80 simonkowallik/httpbin
 ```
 
@@ -43,9 +61,10 @@ I cannot guarantee it will keep track of all commits to [postmanlabs / httpbin](
 
 At the time of writing this are the differences:
 
-- ~~[adds server network info app.route and to /anything #1](https://github.com/simonkowallik/httpbin/pull/1)~~ removed, replaced by [add environment /tags feature ](https://github.com/simonkowallik/httpbin/pull/5)
-- [add environment /tags feature ](https://github.com/simonkowallik/httpbin/pull/5)
-- [adds adds X-Powered-By: httpbin/<version> Header - #431 #2](https://github.com/simonkowallik/httpbin/pull/2)
-- [adds /customresponse/<base64> endpoint to generate custom responses #3](https://github.com/simonkowallik/httpbin/pull/3)
+- ~~[adds server network info app.route and to /anything #1](https://github.com/simonkowallik/httpbin/pull/1)~~ removed, replaced by [add environment /tags feature](https://github.com/simonkowallik/httpbin/pull/5)
+- [add environment /tags feature](https://github.com/simonkowallik/httpbin/pull/5)
+- [adds X-Powered-By: httpbin/\<version> Header - #431 #2](https://github.com/simonkowallik/httpbin/pull/2)
+- [adds /customresponse/\<base64> endpoint to generate custom responses #3](https://github.com/simonkowallik/httpbin/pull/3)
 - [adds alpine:3.10 Dockerfile #4](https://github.com/simonkowallik/httpbin/pull/4/files)
-- adds nginx and unit Dockerfiles / containers
+- [Replace brotlipy with Brotli](https://github.com/simonkowallik/httpbin/pull/6)
+- adds `nginx` and `unit` docker images
