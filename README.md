@@ -18,8 +18,10 @@ I cannot guarantee it will keep track of all commits to [postmanlabs / httpbin](
 > Important configuration files which can optionally be overwritten for customization:
 >
 > - `/etc/nginx/ssl/dhparam.pem`
-> - `/etc/nginx/ssl/cert.pem`
-> - `/etc/nginx/ssl/key.pem`
+> - `/etc/nginx/ssl/eccert.pem` (ecdsa)
+> - `/etc/nginx/ssl/eckey.pem` (ecdsa)
+> - `/etc/nginx/ssl/cert.pem` (rsa)
+> - `/etc/nginx/ssl/key.pem` (rsa)
 > - `/etc/nginx/ssl/chain.pem`
 > - `/etc/nginx/nginx.conf`
 > - `/etc/uwsgi/uwsgi.ini`
@@ -67,4 +69,5 @@ At the time of writing this are the differences:
 - [adds /customresponse/\<base64> endpoint to generate custom responses #3](https://github.com/simonkowallik/httpbin/pull/3)
 - [adds alpine:3.10 Dockerfile #4](https://github.com/simonkowallik/httpbin/pull/4/files)
 - [Replace brotlipy with Brotli](https://github.com/simonkowallik/httpbin/pull/6)
-- adds `nginx` and `unit` docker images
+- [adds dockerfile with nginx+uwsgi + TLS](https://github.com/simonkowallik/httpbin/pull/7)
+- adds `unit` docker images
