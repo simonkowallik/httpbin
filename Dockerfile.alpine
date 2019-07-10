@@ -12,7 +12,7 @@ WORKDIR /httpbin
 ADD . /httpbin
 
 RUN apk update --no-cache; \
-    apk add --no-cache python3 libffi && \
+    apk add --no-cache python3 libffi libstdc++ && \
     apk add --no-cache --virtual .build-deps git alpine-sdk python3-dev libffi-dev && \
     pip3 install --no-cache-dir pipenv gunicorn && \
     pipenv lock -r > /httpbin/requirements.txt && \
