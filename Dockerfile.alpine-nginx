@@ -13,6 +13,7 @@ ADD . /httpbin
 RUN apk update --no-cache; \
     apk add --no-cache \
           libffi \
+          libstdc++ \
           openssl \
           python3 \
           uwsgi \
