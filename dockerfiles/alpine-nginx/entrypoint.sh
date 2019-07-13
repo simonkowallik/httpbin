@@ -3,6 +3,11 @@ set -e
 
 if [ "$1" = 'nginx' ]
 then
+  if [ -e /proc/net/if_inet6 ]
+  then
+    echo "enabling IPv6 listener in nginx.conf (/proc/net/if_inet6 exists)"
+    sed -i 's/#ipv6_disabled#//g' /etc/nginx/nginx.conf
+  fi
   if [ ! -f /etc/nginx/ssl/dhparam.pem ]
   then
     echo "/etc/nginx/ssl/dhparam.pem not found, generating..."
