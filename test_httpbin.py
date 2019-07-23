@@ -845,5 +845,23 @@ class HttpbinTestCase(unittest.TestCase):
             self.assertEqual(response.status_code, 404)
             self.assertEqual(json.loads(response.data.decode('utf-8')), {})
 
+    def test_image_png(self):
+        response = self.app.get('/image/png')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get('Content-Type'), 'image/png')
+        self.assertEqual(response.headers.get('Content-Length'), '8090')
+
+    def test_image_any(self):
+        response = self.app.get('/image', headers={'Accept': 'image/*'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get('Content-Type'), 'image/png')
+        self.assertEqual(response.headers.get('Content-Length'), '8090')
+
+    def test_image_any_any(self):
+        response = self.app.get('/image', headers={'Accept': '*/*'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get('Content-Type'), 'image/png')
+        self.assertEqual(response.headers.get('Content-Length'), '8090')
+
 if __name__ == '__main__':
     unittest.main()
