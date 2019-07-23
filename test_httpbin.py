@@ -114,10 +114,10 @@ class HttpbinTestCase(unittest.TestCase):
         httpbin.app.debug = True
         self.app = httpbin.app.test_client()
 
-    def test_index(self):   
+    def test_index(self):
         response = self.app.get('/', headers={'User-Agent': 'test'})
         self.assertEqual(response.status_code, 200)
- 
+
     def get_data(self, response):
         if 'get_data' in dir(response):
             return response.get_data()
@@ -811,6 +811,24 @@ class HttpbinTestCase(unittest.TestCase):
         self.assertEqual(parse_multi_value_header('"xyzzy", "r2d2xxxx", "c3piozzzz"'), [ "xyzzy", "r2d2xxxx", "c3piozzzz" ])
         self.assertEqual(parse_multi_value_header('W/"xyzzy", W/"r2d2xxxx", W/"c3piozzzz"'), [ "xyzzy", "r2d2xxxx", "c3piozzzz" ])
         self.assertEqual(parse_multi_value_header('*'), [ "*" ])
+
+    def test_image_png(self):
+        response = self.app.get('/image/png')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get('Content-Type'), 'image/png')
+        self.assertEqual(response.headers.get('Content-Length'), '8090')
+
+    def test_image_any(self):
+        response = self.app.get('/image', headers={'Accept': 'image/*'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get('Content-Type'), 'image/png')
+        self.assertEqual(response.headers.get('Content-Length'), '8090')
+
+    def test_image_any_any(self):
+        response = self.app.get('/image', headers={'Accept': '*/*'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get('Content-Type'), 'image/png')
+        self.assertEqual(response.headers.get('Content-Length'), '8090')
 
 if __name__ == '__main__':
     unittest.main()

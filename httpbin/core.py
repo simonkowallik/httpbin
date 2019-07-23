@@ -1636,6 +1636,7 @@ def image():
       - image/jpeg
       - image/png
       - image/*
+      - '*/*'
     responses:
       200:
         description: An image.
@@ -1653,7 +1654,7 @@ def image():
         return image_svg()
     elif "image/jpeg" in accept:
         return image_jpeg()
-    elif "image/png" in accept or "image/*" in accept:
+    elif "image/png" in accept or "image/*" in accept or "*/*" in accept:
         return image_png()
     else:
         return status_code(406)  # Unsupported media type

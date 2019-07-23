@@ -65,7 +65,8 @@ ACCEPTED_MEDIA_TYPES = [
     'image/svg+xml',
     'image/jpeg',
     'image/png',
-    'image/*'
+    'image/*',
+    '*/*'
 ]
 
 ANGRY_ASCII ="""
