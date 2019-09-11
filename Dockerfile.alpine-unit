@@ -14,12 +14,12 @@ RUN apk add --no-cache --virtual .build-deps \
           openssl-dev \
           python3-dev
 
-RUN curl -LO https://unit.nginx.org/download/unit-1.9.0.tar.gz \
-&&  echo -n '25beda88e3e92cace7acfee45a640c351f4e15f20f2aa0f047c3ba61351c6119f270754186f39ab3f1fcc16b1bef9009da4f507d5cdf511538825f2a4c879d62  unit-1.9.0.tar.gz' \
+RUN curl -LO https://unit.nginx.org/download/unit-1.10.0.tar.gz \
+&&  echo -n 'da2b248ba22e5d46fa1c8c21041a875655fad0e1a09683c58cb5bb33ed0a671a921c7a13f99269f0574da02d0efaeff0233abc901e4e333f3f7ac9383334c781  unit-1.10.0.tar.gz' \
     | sha512sum -c - || exit 1
 
-RUN tar xzf unit-1.9.0.tar.gz \
-&&  cd unit-1.9.0 \
+RUN tar xzf unit-1.10.0.tar.gz \
+&&  cd unit-1.10.0 \
 &&  ./configure \
         --prefix="/usr" \
         --state="/var/lib/unit" \
@@ -41,7 +41,6 @@ FROM alpine:3.10
 LABEL name="httpbin"
 LABEL version="0.9.2"
 LABEL description="A simple HTTP service."
-LABEL org.kennethreitz.vendor="Kenneth Reitz"
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
@@ -49,8 +48,8 @@ ENV LANG=C.UTF-8
 WORKDIR /httpbin
 ADD . /httpbin
 
-COPY --from=builder /build/unit-1.9.0/build/unitd /usr/sbin/
-COPY --from=builder /build/unit-1.9.0/build/python3.unit.so /usr/lib/unit/modules/
+COPY --from=builder /build/unit-1.10.0/build/unitd /usr/sbin/
+COPY --from=builder /build/unit-1.10.0/build/python3.unit.so /usr/lib/unit/modules/
 
 RUN apk update --no-cache \
 &&  apk add --no-cache \
