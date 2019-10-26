@@ -2,6 +2,8 @@ FROM alpine:3.10 AS builder
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
+ENV unitver=1.12.0
+ENV sha512=a55a084ed6e1cd3f784bd81571772ca29ca9a0d19089c9bb74c88258d2e1ef872978219c47b6dc2610711ae1aa95ef68ddb77f45747a2eacdd9d92c6f8fee28b
 
 WORKDIR /build
 
@@ -14,12 +16,13 @@ RUN apk add --no-cache --virtual .build-deps \
           openssl-dev \
           python3-dev
 
-RUN curl -LO https://unit.nginx.org/download/unit-1.10.0.tar.gz \
-&&  echo -n 'da2b248ba22e5d46fa1c8c21041a875655fad0e1a09683c58cb5bb33ed0a671a921c7a13f99269f0574da02d0efaeff0233abc901e4e333f3f7ac9383334c781  unit-1.10.0.tar.gz' \
+RUN curl -LO https://unit.nginx.org/download/unit-${unitver}.tar.gz \
+&&  echo -n "${sha512}  unit-${unitver}.tar.gz" \
     | sha512sum -c - || exit 1
 
-RUN tar xzf unit-1.10.0.tar.gz \
-&&  cd unit-1.10.0 \
+RUN tar xzf unit-${unitver}.tar.gz \
+&&  ln -s unit-${unitver} unit \
+&&  cd unit \
 &&  ./configure \
         --prefix="/usr" \
         --state="/var/lib/unit" \
@@ -48,8 +51,8 @@ ENV LANG=C.UTF-8
 WORKDIR /httpbin
 ADD . /httpbin
 
-COPY --from=builder /build/unit-1.10.0/build/unitd /usr/sbin/
-COPY --from=builder /build/unit-1.10.0/build/python3.unit.so /usr/lib/unit/modules/
+COPY --from=builder /build/unit/build/unitd /usr/sbin/
+COPY --from=builder /build/unit/build/python3.unit.so /usr/lib/unit/modules/
 
 RUN apk update --no-cache \
 &&  apk add --no-cache \
