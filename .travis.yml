@@ -16,6 +16,15 @@ matrix:
           env: TOXENV=py38
           dist: xenial
           sudo: true
+        - python: nightly
+          env: TOXENV=py38
+          dist: xenial
+          sudo: true
+    allow_failures:
+        - python: nightly
+          env: TOXENV=py38
+          dist: xenial
+          sudo: true
 
 install:
     - travis_retry pip install tox
