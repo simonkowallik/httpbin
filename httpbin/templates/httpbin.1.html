@@ -1,12 +1,5 @@
 <div class='mp'>
 <h1>httpbin(1): HTTP Request &amp; Response Service</h1>
-<p>Freely hosted in <a href="http://httpbin.org">HTTP</a>, <a href="https://httpbin.org">HTTPS</a>, &amp; <a href="http://eu.httpbin.org/">EU</a> flavors by <a href="http://kennethreitz.org/bitcoin">Kenneth Reitz</a> &amp; <a href="https://www.heroku.com/python">Heroku</a>.</p>
-
-<h2 id="BONUSPOINTS">BONUSPOINTS</h2>
-
-<ul>
-<li><a href="https://now.httpbin.org/" data-bare-link="true"><code>now.httpbin.org</code></a> The current time, in a variety of formats.</li>
-</ul>
 
 <h2 id="ENDPOINTS">ENDPOINTS</h2>
 
@@ -67,23 +60,21 @@
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>Testing an HTTP Library can become difficult sometimes. <a href="http://requestb.in">RequestBin</a> is fantastic for testing POST requests, but doesn't let you control the response. This exists to cover all kinds of HTTP scenarios. Additional endpoints are being considered.</p>
-
 <p>All endpoint responses are JSON-encoded.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<h3 id="-curl-http-httpbin-org-ip">$ curl http://httpbin.org/ip</h3>
+<h3 id="-curl-http-httpbin-org-ip">$ curl http://localhost/ip</h3>
 
-<pre><code>{"origin": "24.127.96.129"}
+<pre><code>{"origin": "127.0.0.1"}
 </code></pre>
 
-<h3 id="-curl-http-httpbin-org-user-agent">$ curl http://httpbin.org/user-agent</h3>
+<h3 id="-curl-http-httpbin-org-user-agent">$ curl http://localhost/user-agent</h3>
 
 <pre><code>{"user-agent": "curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3"}
 </code></pre>
 
-<h3 id="-curl-http-httpbin-org-get">$ curl http://httpbin.org/get</h3>
+<h3 id="-curl-http-httpbin-org-get">$ curl http://localhost/get</h3>
 
 <pre><code>{
    "args": {},
@@ -92,15 +83,15 @@
       "Connection": "close",
       "Content-Length": "",
       "Content-Type": "",
-      "Host": "httpbin.org",
+      "Host": "localhost",
       "User-Agent": "curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3"
    },
-   "origin": "24.127.96.129",
-   "url": "http://httpbin.org/get"
+   "origin": "127.0.0.1",
+   "url": "http://localhost/get"
 }
 </code></pre>
 
-<h3 id="-curl-I-http-httpbin-org-status-418">$ curl -I http://httpbin.org/status/418</h3>
+<h3 id="-curl-I-http-httpbin-org-status-418">$ curl -I http://localhost/status/418</h3>
 
 <pre><code>HTTP/1.1 418 I'M A TEAPOT
 Server: nginx/0.7.67
@@ -110,7 +101,7 @@ x-more-info: http://tools.ietf.org/html/rfc2324
 Content-Length: 135
 </code></pre>
 
-<h3 id="-curl-https-httpbin-org-get-show_env-1">$ curl https://httpbin.org/get?show_env=1</h3>
+<h3 id="-curl-https-httpbin-org-get-show_env-1">$ curl https://localhost/get?show_env=1</h3>
 
 <pre><code>{
   "headers": {
@@ -119,7 +110,7 @@ Content-Length: 135
     "Accept-Encoding": "gzip,deflate,sdch",
     "X-Forwarded-Port": "443",
     "X-Forwarded-For": "109.60.101.240",
-    "Host": "httpbin.org",
+    "Host": "localhost",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11",
     "X-Request-Start": "1350053933441",
@@ -133,7 +124,7 @@ Content-Length: 135
     "show_env": "1"
   },
   "origin": "109.60.101.240",
-  "url": "http://httpbin.org/get?show_env=1"
+  "url": "http://localhost/get?show_env=1"
 }
 </code></pre>
 
@@ -144,17 +135,5 @@ Content-Length: 135
 <pre><code class="bash">$ pip install httpbin
 $ gunicorn httpbin:app
 </code></pre>
-
-
-<h2 id="AUTHOR">AUTHOR</h2>
-
-<p>A <a href="http://kennethreitz.com/">Kenneth Reitz</a> project.</p>
-<p>BTC: <a href="https://www.kennethreitz.org/bitcoin"><code>1Me2iXTJ91FYZhrGvaGaRDCBtnZ4KdxCug</code></a></p>
-
-<h2 id="SEE-ALSO">SEE ALSO</h2>
-
-<p><a href="https://www.hurl.it">Hurl.it</a> - Make HTTP requests.</p>
-<p><a href="http://requestb.in">RequestBin</a> - Inspect HTTP requests.</p>
-<p><a href="http://python-requests.org" data-bare-link="true">http://python-requests.org</a></p>
 
 </div>
