@@ -7,9 +7,6 @@ LABEL description="A simple HTTP service."
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-#RUN apt update -y && apt install -y python3-pip
-#RUN pip3 install --no-cache-dir poetry
-
 ADD . /httpbin
 WORKDIR /httpbin
 
