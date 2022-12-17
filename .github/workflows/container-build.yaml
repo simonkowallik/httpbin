@@ -1,0 +1,48 @@
+---
+name: container-build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        containers:
+          - tag: latest
+            file: Dockerfile
+          - tag: alpine
+            file: Dockerfile.alpine
+          - tag: nginx
+            file: Dockerfile.nginx
+          - tag: unit
+            file: Dockerfile.unit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build container image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ${{ matrix.containers.file }}
+          platforms: linux/amd64
+          push: false
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          tags: httpbin:${{ matrix.containers.tag }}
+
+#      - name: Test?
+#        run: |
+#          echo TODO
