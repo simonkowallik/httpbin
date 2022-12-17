@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye
+FROM python:3.11-slim-bullseye
 
 LABEL name="httpbin"
 LABEL version="0.9.2"
