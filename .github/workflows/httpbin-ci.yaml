@@ -1,4 +1,4 @@
-name: httpbin CI
+name: "httpbin Tests"
 
 on:
   workflow_dispatch:
