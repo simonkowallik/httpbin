@@ -1,60 +1,44 @@
 # httpbin : sk-features
 
-[![Travis Build Status](https://img.shields.io/travis/com/simonkowallik/httpbin/sk-features.svg?label=travis%20build)](https://travis-ci.com/simonkowallik/httpbin)
-[![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/simonkowallik/httpbin.svg?color=brightgreen)](https://hub.docker.com/r/simonkowallik/httpbin)
-[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/simonkowallik/httpbin.svg)](https://hub.docker.com/r/simonkowallik/httpbin/builds)
 
-## My custom httpbin(1): HTTP Request & Response Service
+## httpbin(1): HTTP Request & Response Service
 
-This is my custom version of httpbin tailored to my personal needs.
-I cannot guarantee it will keep track of all commits to [postmanlabs / httpbin](https://github.com/postmanlabs/httpbin) but I plan to submit pull requests for all changes to upstream.
+This httpbin fork is updated and tailored to my personal needs.
+As [postmanlabs / httpbin](https://github.com/postmanlabs/httpbin) is stale and did not see an update in several years I felt the need to maintain my own version.
 
 ## Supported docker tags
 
-- `:latest`, `:alpine` : Both use `alpine` linux as the base image.
+- **`:latest`** / **`:alpine`** : Plain httpbin with gunicorn on Debian / Alpine Linux.
 
-- `:nginx` : Uses [nginx](https://github.com/nginx/nginx) and [uwsgi](https://github.com/unbit/uwsgi) instead of gunicorn, uses base image `nginx:alpine`
+- **`:nginx`** : Uses [nginx](https://github.com/nginx/nginx) and [uwsgi](https://github.com/unbit/uwsgi) with `nginx:alpine` as the base image.
 
-> Important configuration files which can optionally be overwritten for customization:
->
-> - `/etc/nginx/ssl/dhparam.pem`
-> - `/etc/nginx/ssl/eccert.pem` (ecdsa)
-> - `/etc/nginx/ssl/eckey.pem` (ecdsa)
-> - `/etc/nginx/ssl/cert.pem` (rsa)
-> - `/etc/nginx/ssl/key.pem` (rsa)
-> - `/etc/nginx/ssl/chain.pem`
-> - `/etc/nginx/nginx.conf`
-> - `/etc/uwsgi/uwsgi.ini`
+    > Supports HTTPS and HTTP2. TLS Certificates & keys are automatically generated but can be overwritten / mapped using docker:
+    >
+    > - `/etc/nginx/ssl/dhparam.pem`
+    > - `/etc/nginx/ssl/eccert.pem` (ecdsa)
+    > - `/etc/nginx/ssl/eckey.pem` (ecdsa)
+    > - `/etc/nginx/ssl/cert.pem` (rsa)
+    > - `/etc/nginx/ssl/key.pem` (rsa)
+    > - `/etc/nginx/ssl/chain.pem`
+    > - `/etc/nginx/nginx.conf`
+    > - `/etc/uwsgi/uwsgi.ini`
 
-- `:unit` : Uses [nginx's unit](https://github.com/nginx/unit) instead of gunicorn, uses base image `alpine`
+- **`:unit`** : Uses [nginx unit](https://github.com/nginx/unit) with base image `alpine`.
 
-> Important configuration files which can optionally be overwritten for customization:
->
-> - `/var/lib/unit/certs/bundle` (bundle content created by: `cat cert.pem cachain.pem key.pem > bundle`)
-> - `/var/lib/unit/conf.json`
+    > Supports HTTPS and HTTP2. TLS Certificates & keys are automatically generated but can be overwritten / mapped using docker:
+    >
+    > - `/var/lib/unit/certs/bundle` (bundle content created by: `cat cert.pem cachain.pem key.pem > bundle`)
+    > - `/var/lib/unit/conf.json`
 
-- `:ubuntu` :  Uses the original `ubuntu:18.04` base image.
 
-## Docker image details
+## Usage
 
-[![](https://img.shields.io/microbadger/layers/simonkowallik/httpbin/alpine.svg?label=:latest%2F:alpine+layers)](https://microbadger.com/images/simonkowallik/httpbin:alpine)
-[![](https://img.shields.io/microbadger/image-size/simonkowallik/httpbin/alpine.svg?label=:latest%2F:alpine+size)](https://microbadger.com/images/simonkowallik/httpbin:alpine)
-
-[![](https://img.shields.io/microbadger/layers/simonkowallik/httpbin/nginx.svg?label=:nginx+layers)](https://microbadger.com/images/simonkowallik/httpbin:nginx)
-[![](https://img.shields.io/microbadger/image-size/simonkowallik/httpbin/nginx.svg?label=:nginx+size)](https://microbadger.com/images/simonkowallik/httpbin:nginx)
-
-[![](https://img.shields.io/microbadger/layers/simonkowallik/httpbin/unit.svg?label=:unit+layers)](https://microbadger.com/images/simonkowallik/httpbin:unit)
-[![](https://img.shields.io/microbadger/image-size/simonkowallik/httpbin/unit.svg?label=:unit+size)](https://microbadger.com/images/simonkowallik/httpbin:unit)
-
-[![](https://img.shields.io/microbadger/layers/simonkowallik/httpbin/ubuntu.svg?label=:ubuntu+layers)](https://microbadger.com/images/simonkowallik/httpbin:ubuntu)
-[![](https://img.shields.io/microbadger/image-size/simonkowallik/httpbin/ubuntu.svg?label=:ubuntu+size)](https://microbadger.com/images/simonkowallik/httpbin:ubuntu)
-
-## Run it locally
+Simple example:
 
 ```sh
-    docker run -p 80:80 simonkowallik/httpbin:nginx
+    docker run -p 80:80 -p 443:443 simonkowallik/httpbin:nginx
 
-    docker run -p 80:80 simonkowallik/httpbin:unit
+    docker run -p 80:80 -p 443:443 simonkowallik/httpbin:unit
 
     docker run -p 80:80 simonkowallik/httpbin
 ```
@@ -70,4 +54,3 @@ At the time of writing this are the differences:
 - [adds alpine:3.10 Dockerfile #4](https://github.com/simonkowallik/httpbin/pull/4/files)
 - [Replace brotlipy with Brotli](https://github.com/simonkowallik/httpbin/pull/6)
 - [adds dockerfile with nginx+uwsgi + TLS](https://github.com/simonkowallik/httpbin/pull/7)
-- adds `unit` docker images

@@ -1,2 +1,6 @@
 .git
+.github
+.gitignore
+.venv
 Dockerfile*
+docker-compose*

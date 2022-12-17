@@ -1,4 +1,5 @@
 env/
+.venv
 build/
 dist/
 .eggs/

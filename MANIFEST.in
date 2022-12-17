@@ -1,3 +1,0 @@
-include httpbin/VERSION README.md LICENSE AUTHORS test_httpbin.py
-recursive-include httpbin/templates *
-recursive-include httpbin/static *
