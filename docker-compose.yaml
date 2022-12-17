@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  httpbin:
+    image: httpbin:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+  httpbin-alpine:
+    image: httpbin:alpine
+    build:
+      context: .
+      dockerfile: ./Dockerfile.alpine
+  httpbin-nginx:
+    image: httpbin:nginx
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+  httpbin-unit:
+    image: httpbin:unit
+    build:
+      context: .
+      dockerfile: ./Dockerfile.unit

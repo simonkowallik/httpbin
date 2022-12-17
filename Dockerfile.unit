@@ -8,7 +8,12 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
 RUN apk update --no-cache \
-&&  apk add --no-cache python3 py3-pip
+&&  apk add --no-cache \
+          openssl \
+          python3 \
+          py3-pip \
+          unit \
+          unit-python3
 
 WORKDIR /httpbin
 ADD . /httpbin
@@ -16,6 +21,12 @@ ADD . /httpbin
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir /httpbin
 
-EXPOSE 80
+ADD containerfiles/alpine-unit/ /
 
-CMD ["gunicorn", "-b", "0.0.0.0:80", "httpbin:app", "-k", "gevent"]
+EXPOSE 80 443
+
+STOPSIGNAL SIGTERM
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["unitd", "--no-daemon", "--control", "unix:/run/control.unit.sock"]
