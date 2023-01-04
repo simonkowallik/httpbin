@@ -20,3 +20,13 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.unit
+  httpbin-bullseye-httpd:
+    image: httpbin:bullseye-httpd
+    build:
+      context: .
+      dockerfile: ./Dockerfile.bullseye-httpd
+  httpbin-alpine-httpd:
+    image: httpbin:alpine-httpd
+    build:
+      context: .
+      dockerfile: ./Dockerfile.alpine-httpd
