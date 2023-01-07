@@ -18,6 +18,10 @@ jobs:
             file: Dockerfile.nginx
           - tag: unit
             file: Dockerfile.unit
+          - tag: httpd
+            file: Dockerfile.httpd
+          - tag: httpd-alpine
+            file: Dockerfile.httpd-alpine
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
