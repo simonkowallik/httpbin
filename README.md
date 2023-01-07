@@ -11,6 +11,8 @@ As [postmanlabs / httpbin](https://github.com/postmanlabs/httpbin) is stale and 
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/simonkowallik/httpbin/latest?label=latest)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/simonkowallik/httpbin/alpine?label=alpine)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/simonkowallik/httpbin/nginx?label=nginx)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/simonkowallik/httpbin/bullseye-httpd?label=bullseye-httpd)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/simonkowallik/httpbin/alpine-httpd?label=alpine-httpd)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/simonkowallik/httpbin/unit?label=unit)
 
 - **`:latest`** / **`:alpine`** : Plain httpbin with gunicorn on Debian / Alpine Linux.
@@ -28,6 +30,34 @@ As [postmanlabs / httpbin](https://github.com/postmanlabs/httpbin) is stale and 
     > - `/etc/nginx/nginx.conf`
     > - `/etc/uwsgi/uwsgi.ini`
 
+- **`:bullseye-httpd`** : Uses [httpd](https://github.com/docker-library/httpd) and [uwsgi](https://github.com/unbit/uwsgi) with `httpd:bullseye` as the base image.
+
+    > Supports HTTPS. TLS Certificates & keys are automatically generated but can be overwritten / mapped using docker:
+    >
+    > - `/usr/local/apache2/conf/ssl/dhparam.pem`
+    > - `/usr/local/apache2/conf/ssl/eccert.pem` (ecdsa)
+    > - `/usr/local/apache2/conf/ssl/eckey.pem` (ecdsa)
+    > - `/usr/local/apache2/conf/ssl/cert.pem` (rsa)
+    > - `/usr/local/apache2/conf/ssl/key.pem` (rsa)
+    > - `/usr/local/apache2/conf/ssl/chain.pem`
+    > - `/usr/local/apache2/conf/httpd.conf`
+    > - `/usr/local/apache2/conf/extra/vhosts/*.conf`
+    > - `/etc/uwsgi/uwsgi.ini`
+
+- **`:alpine-httpd`** : Uses [httpd](https://github.com/docker-library/httpd) and [uwsgi](https://github.com/unbit/uwsgi) with `httpd:alpine` as the base image.
+
+    > Supports HTTPS. TLS Certificates & keys are automatically generated but can be overwritten / mapped using docker:
+    >
+    > - `/usr/local/apache2/conf/ssl/dhparam.pem`
+    > - `/usr/local/apache2/conf/ssl/eccert.pem` (ecdsa)
+    > - `/usr/local/apache2/conf/ssl/eckey.pem` (ecdsa)
+    > - `/usr/local/apache2/conf/ssl/cert.pem` (rsa)
+    > - `/usr/local/apache2/conf/ssl/key.pem` (rsa)
+    > - `/usr/local/apache2/conf/ssl/chain.pem`
+    > - `/usr/local/apache2/conf/httpd.conf`
+    > - `/usr/local/apache2/conf/extra/vhosts/*.conf`
+    > - `/etc/uwsgi/uwsgi.ini`
+
 - **`:unit`** : Uses [nginx unit](https://github.com/nginx/unit) with base image `alpine`.
 
     > Supports HTTPS and HTTP2. TLS Certificates & keys are automatically generated but can be overwritten / mapped using docker:
@@ -42,6 +72,10 @@ Simple example:
 
 ```sh
     docker run -p 80:80 -p 443:443 simonkowallik/httpbin:nginx
+
+    docker run -p 80:80 -p 443:443 simonkowallik/httpbin:bullseye-httpd
+
+    docker run -p 80:80 -p 443:443 simonkowallik/httpbin:alpine-httpd
 
     docker run -p 80:80 -p 443:443 simonkowallik/httpbin:unit
 

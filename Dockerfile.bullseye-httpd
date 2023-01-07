@@ -1,0 +1,32 @@
+FROM httpd:bullseye
+
+LABEL name="httpbin"
+LABEL version="0.9.2"
+LABEL description="A simple HTTP service."
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
+RUN apt update &&\
+    apt install -y \
+        uwsgi \
+        uwsgi-plugin-python3 \
+        python3-pip \
+    &&  mkdir -p /usr/local/apache2/conf/ssl \
+    &&  chmod 0700 /usr/local/apache2/conf/ssl
+
+WORKDIR /httpbin
+ADD . /httpbin
+
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir /httpbin
+
+ADD containerfiles/bullseye-httpd/ /
+
+EXPOSE 80 443
+
+STOPSIGNAL SIGTERM
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["httpd-foreground"]
