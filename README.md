@@ -143,4 +143,4 @@ $ curl -vsk http://localhost/tags
 
 Thanks to:
 
-- [@v-slenter](https://github.com/v-slenter) for #9
+- [@v-slenter](https://github.com/v-slenter) for [#9](https://github.com/simonkowallik/httpbin/pull/9)
